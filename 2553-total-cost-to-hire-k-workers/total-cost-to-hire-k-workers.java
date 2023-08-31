@@ -33,7 +33,7 @@ class Solution {
         }
         while(k-->0){
         int res=pq.poll();
-        System.out.println("res "+res+" val "+costs[res]);
+        // System.out.println("res "+res+" val "+costs[res]);
         if(i<=j){
         if(res<=i) {pq.add(i); i++;}
         else {pq.add(j);j--;}}
