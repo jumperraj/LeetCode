@@ -19,7 +19,7 @@ class Solution {
             // if(v[rot[0]][rot[1]]==1){ continue;}
             // v[rot[0]][rot[1]]=1;
             int r=rot[0],c=rot[1];
-                        System.out.println("r "+r+" c "+c );
+                        // System.out.println("r "+r+" c "+c );
 
             if(r>0&&grid[r-1][c]==1){grid[r-1][c]=2;pq.add(new int[]{r-1,c});count--;}
             if(r<grid.length-1&&grid[r+1][c]==1){grid[r+1][c]=2;pq.add(new int[]{r+1,c});count--;}
