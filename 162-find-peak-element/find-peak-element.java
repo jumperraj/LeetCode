@@ -1,7 +1,7 @@
 class Solution {
     int binary(int high, int low, int[] nums){
         int mid= (high+low)/2;
-        System.out.println("mid "+mid);
+        // System.out.println("mid "+mid);
         if(mid==0&&nums[mid+1]<nums[mid]){ return mid;
         }
         if(mid==nums.length-1&&nums[mid]>nums[mid-1]) return mid;
