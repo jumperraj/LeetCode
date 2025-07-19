@@ -6,7 +6,7 @@ class Solution {
         for(int i =0 ; i< m ; i++){
             for(int j=0; j< n ;j++)
                 res[i][j] = grid[n-1-j][i];
-            System.out.println("i "+i);
+            // System.out.println("i "+i);
         }
        for(int j = 0 ;j< n;j++){
         int i = m-1;
