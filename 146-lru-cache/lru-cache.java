@@ -1,38 +1,82 @@
-
 class LRUCache {
-    // PriorityQueue<Compare> pq ;
-    Queue<Integer> q ;
-    HashMap<Integer,Integer> hm;
+    class Node {
+        int value;
+        int key;
+        Node next;
+        Node prev;
+        Node(int key , int value){
+            this.value =value;
+            this.key = key;
+            this.next=null;
+            this.prev= null;
+        }
+    }
+    Node[] map = new Node[10000+1];
+    Node head,tail;
     int size;
+    int count;
     public LRUCache(int capacity) {
-        // pq== new PriorityQueue<>( (a,b)=>a.value-b.value);
-        q= new ArrayDeque<>();
-        hm = new HashMap<>();
+        head = new Node(0,0);
+        tail = new Node(0,0);
+        head.next = tail;
+        tail.prev= head;
         this.size = capacity;
+        this.count =0;
+
+    }
+    void addNode(Node node){
+        head.next.prev=node;
+        node.next=head.next;
+        head.next =node;
+        node.prev=head;
+    }
+    void deleteNode(Node node){
+        System.out.println("Node value during delete "+node.value);
+        Node prev= node.prev;
+        Node next = node.next;
+        prev.next=next;
+        next.prev=prev;
+        // node.next.prev=node.prev;
+        // node.prev.next=node.next;
     }
     
     public int get(int key) {
-        if(hm.containsKey(key)){
-            q.remove(key);
-            q.offer(key);
-            return hm.get(key);
+        if(map[key]!=null){
+            Node node = map[key];
+            deleteNode(node);
+            addNode(node);
+            return node.value;
         }
-        else return -1;
+        else {
+            return -1;
+        }
     }
     
     public void put(int key, int value) {
-        if(hm.containsKey(key)){
-            q.remove(key);
-            q.offer(key);
-            hm.put(key,value);
-       }
-       else{
-        q.offer(key);
-            hm.put(key,value);
-       }
-       if(hm.size()>this.size){
-        hm.remove(q.poll());
-       }
+        if(map[key]!=null){
+            Node node = map[key];
+            node.value=value;
+            deleteNode(node);
+            addNode(node);
+        }
+        else {
+            Node node = new Node(key,value);
+            
+            map[key]=node;
+           
+            if(this.size<=this.count){
+                // this.count++;
+                Node lru = this.tail.prev;
+                System.out.println("node getting removed "+lru.key);
+                map[lru.key]=null;
+                this.deleteNode(lru);
+                addNode(node);
+            }
+            else {
+                this.count++;
+                addNode(node);
+            }
+        }
     }
 }
 
