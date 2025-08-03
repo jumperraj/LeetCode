@@ -31,13 +31,8 @@ class LRUCache {
         node.prev=head;
     }
     void deleteNode(Node node){
-        System.out.println("Node value during delete "+node.value);
-        Node prev= node.prev;
-        Node next = node.next;
-        prev.next=next;
-        next.prev=prev;
-        // node.next.prev=node.prev;
-        // node.prev.next=node.next;
+        node.next.prev=node.prev;
+        node.prev.next=node.next;
     }
     
     public int get(int key) {
@@ -65,9 +60,7 @@ class LRUCache {
             map[key]=node;
            
             if(this.size<=this.count){
-                // this.count++;
                 Node lru = this.tail.prev;
-                System.out.println("node getting removed "+lru.key);
                 map[lru.key]=null;
                 this.deleteNode(lru);
                 addNode(node);
