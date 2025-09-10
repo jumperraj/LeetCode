@@ -10,13 +10,14 @@ class Solution {
 
        for(i=2;i<triangle.size();i++){
         List<Integer> l = triangle.get(i);
+        int s= l.size();
         min=Integer.MAX_VALUE;
         dp[i][0]=dp[i-1][0]+l.get(0); 
         min=Math.min(dp[i][0],min);
-        dp[i][l.size()-1]= dp[i-1][l.size()-2]+l.get(l.size()-1);
-        min=Math.min(dp[i][l.size()-1],min);
+        dp[i][s-1]= dp[i-1][s-2]+l.get(s-1);
+        min=Math.min(dp[i][s-1],min);
         
-        for(int j =1; j<l.size()-1;j++){
+        for(int j =1; j<s-1;j++){
             dp[i][j]= Math.min(dp[i-1][j-1],dp[i-1][j])+l.get(j);
             min=Math.min(dp[i][j],min);
         }
